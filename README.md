@@ -6,3 +6,8 @@ Contains:
 - **data/** Example data called by the code
 - **docs/** A few key bits of pavo-related literature
 - **slides/** Introductory slides
+
+### See also
+
+- The pavo handbook - https://book.colrverse.com
+- Reference manual (same as built-in help) - http://pavo.colrverse.com
