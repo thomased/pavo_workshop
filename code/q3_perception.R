@@ -66,12 +66,12 @@ points(col_tetra_b, col = 'goldenrod')
 points(col_tetra_c, col = 'purple')
 
 # Or plot interactively
-#tcsplot(col_tetra_a, col = 'forestgreen')
-#tcsvol(col_tetra_a, col = 'forestgreen', type = 'alpha')
-#tcspoints(col_tetra_b, col = 'goldenrod')
-#tcsvol(col_tetra_b, col = 'goldenrod', type = 'alpha')
-#tcspoints(col_tetra_c, col = 'purple')
-#tcsvol(col_tetra_c, col = 'purple', type = 'alpha')
+tcsplot(col_tetra_a, col = 'forestgreen')
+tcsvol(col_tetra_a, col = 'forestgreen', type = 'alpha')
+tcspoints(col_tetra_b, col = 'goldenrod')
+tcsvol(col_tetra_b, col = 'goldenrod', type = 'alpha')
+tcspoints(col_tetra_c, col = 'purple')
+tcsvol(col_tetra_c, col = 'purple', type = 'alpha')
 
 # Explore some individual-level measures of colour, structure
 head(col_tetra_a)
