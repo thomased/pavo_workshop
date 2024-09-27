@@ -73,7 +73,6 @@ vis_tri <- vismodel(dat,
                     illum = 'bluesky', 
                     scale = 10000, 
                     relative = FALSE)
-vis_tri
 
 # Tetrachromat viewer (average UV-sensitive bird)
 vis_tetra <- vismodel(dat, 
@@ -84,20 +83,15 @@ vis_tetra <- vismodel(dat,
                       scale = 10000,
                       relative = FALSE)
 
-# Map the colors into 'receptor noise' space for visualisation
+# Visualise them in a simple colourspace
+
 # Tri-chromat: custom space for 'habronattus'
 tcs_tri <- colspace(vis_tri, space = 'tri')
+plot(tcs_tri, col = rep(c('forestgreen', 'brown'), each = 10))
 
 # Tetrachromat: Tetrahedral color space
 tcs_tetra <- colspace(vis_tetra, space = 'tcs')
-
-# Plot the colors in their respective color spaces
-
-# Plot for tri-chromatic viewer (Habronattus)
-plot(tcs_tri, col = rep(c('green', 'brown'), each = 10), main = "Frog vs Background Colors in Habronattus Vision")
-
-# Plot for tetrachromatic viewer (Tetrahedral color space)
-plot(tcs_tetra, col = rep(c('green', 'brown'), each = 10), main = "Frog vs Background Colors in Tetrahedral Space (Tetrachromat Vision)")
+plot(tcs_tetra, col = rep(c('forestgreen', 'brown'), each = 10))
 
 # Calculate chromatic contrasts (JNDs) using receptor noise models for each viewer
 
@@ -112,6 +106,10 @@ dist_tetra <- coldist(vis_tetra,
                      noise = 'neural', 
                      n = c(1, 2, 2, 4),
                      achromatic = TRUE)
+
+# Can also visualise them in 'rn-space' or 'JND-space'
+plot(jnd2xyz(dist_tri), col = rep(c('forestgreen', 'brown'), each = 10))
+plot(jnd2xyz(dist_tetra), col = rep(c('forestgreen', 'brown'), each = 10))
 
 # Two-step procedure outlines in Maia & White (2018) to test for 
 # statistical and 'perceptual' discrimination
@@ -157,3 +155,8 @@ boot_tetra <-
 )
 
 boot_tetra
+
+
+
+
+
