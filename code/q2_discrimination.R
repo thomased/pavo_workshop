@@ -10,37 +10,6 @@ library(pavo)
 library(vegan)
 library(tidyverse)
 
-## --------------------------------------------------------------------------------------------------------
-# FOR TESTING ONLY
-# Simulate spectra for 10 frogs and 10 backgrounds using simulate_spec 
-# Frogs and backgrounds have variation in Gaussian and sigmoidal peaks
-
-# Simulate frog spectra with a combination of Gaussian and sigmoidal features
-spec_frog <- lapply(1:10, function(x) simulate_spec(wl_inflect = 550 + runif(1, -20, 20),
-                                                    wl_peak = c(400 + runif(1, -30, 30), 500 + runif(1, -30, 30)),
-                                                    width_gauss = 50 + runif(1, -10, 10)))
-
-# Simulate background spectra with broader Gaussian peaks
-spec_bkg <- lapply(1:10, function(x) simulate_spec(wl_peak = c(450 + runif(1, -40, 40), 650 + runif(1, -50, 50)),
-                                                   width_gauss = 100 + runif(1, -20, 20)))
-
-# Name the frog spectra F1, F2, ... and background spectra B1, B2, ...
-names_frog <- paste0('F', 1:10)
-names_bkg <- paste0('B', 1:10)
-
-# Assign names to spectra and combine
-for (i in seq_along(spec_frog)) {
-  colnames(spec_frog[[i]])[2] <- names_frog[i]
-  colnames(spec_bkg[[i]])[2] <- names_bkg[i]
-}
-
-# Combine frog and background spectra
-spec_frog <- Reduce(merge, spec_frog)  # Combine frog spectra
-spec_bkg <- Reduce(merge, spec_bkg)    # Combine background spectra
-dat <- merge(spec_frog, spec_bkg)      # Combine frog and background spectra
-
-## --------------------------------------------------------------------------------------------------------
-
 # Load real data (to be used in place of the simulated spectra during real analysis)
 # dat <- getspec('../data/q2_discrimination/', ext = '.jaz')
 
