@@ -13,12 +13,12 @@ library(tidyverse)
 library(patchwork)
 
 # Load collected reflectance spectra of male and female Eurema hecabe butterflies
-specs <- read.csv('../data/q1_description/hecabe_reflectance.csv')
+specs <- read.csv('../data/q1_spectral/hecabe_reflectance.csv')
 
 # Load measures of average 'ridge density' per individual. 
 # This is a measure of the density of the ridges on the wing-scales, which underlie
 # structural (UV) component of their wing colouration
-ridges <- read.csv('../data/q1_description/hecabe_ridge_density.csv')
+ridges <- read.csv('../data/q1_spectral/hecabe_ridge_density.csv')
   
 # Convert spectra to 'rspec' objects
 specs <- as.rspec(specs, lim = c(300, 700))

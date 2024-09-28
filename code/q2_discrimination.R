@@ -14,9 +14,9 @@ library(tidyverse)
 # dat <- getspec('../data/q2_discrimination/', ext = '.jaz')
 
 # Plot specs
-plot(dat, col = rep(c('green', 'brown'), each = 10), 
+plot(dat, col = rep(c('forestgreen', 'brown'), each = 10), 
      main = "Frog and Background Spectra")
-legend('topright', legend = c('Frog', 'Background'), col = c('green', 'brown'), lty = 1)
+legend('topright', legend = c('Frog', 'Background'), col = c('forestgreen', 'brown'), lty = 1)
 
 # Process spectra: smoothing and zero-ing negative values
 dat <- procspec(dat, opt = 'smooth', fixneg = 'zero', span = 0.2)
@@ -66,15 +66,15 @@ plot(tcs_tetra, col = rep(c('forestgreen', 'brown'), each = 10))
 
 # Tri-chromat contrasts (Habronattus)
 dist_tri <- coldist(vis_tri, 
-                   noise = 'neural',
-                   n = c(1, 2, 2),
-                   achromatic = TRUE)
+                    noise = 'neural',
+                    n = c(1, 2, 2),
+                    achromatic = TRUE)
 
 # Tetrachromat contrasts (Birds)
 dist_tetra <- coldist(vis_tetra, 
-                     noise = 'neural', 
-                     n = c(1, 2, 2, 4),
-                     achromatic = TRUE)
+                      noise = 'neural', 
+                      n = c(1, 2, 2, 4),
+                      achromatic = TRUE)
 
 # Can also visualise them in 'rn-space' or 'JND-space'
 plot(jnd2xyz(dist_tri), col = rep(c('forestgreen', 'brown'), each = 10))
@@ -86,17 +86,13 @@ plot(jnd2xyz(dist_tetra), col = rep(c('forestgreen', 'brown'), each = 10))
 # PERMANOVA to test for overall color separation
 
 # Prepare inter-sample 'distance matrix' for PERMANOVA 
-# Trichromat first
-matrix_tri <- dist(coldist2mat(dist_tri)[['dS']])  
-groups_tri <- substring(rownames(as.matrix(matrix_tri)), 1, 1)  # Create group labels
-
-# Tetrachromat
-matrix_tetra <- dist(coldist2mat(dist_tetra)[['dS']])  
-groups_tetra <- substring(rownames(as.matrix(matrix_tetra)), 1, 1)
+matrix_tri <- dist(coldist2mat(dist_tri)[['dS']]) # Trichromat
+matrix_tetra <- dist(coldist2mat(dist_tetra)[['dS']])  # Tetrachromat
+groups <- substring(rownames(as.matrix(matrix_tri)), 1, 1)  # Create group labels
 
 # Use the 'adonis' function from the vegan package for PERMANOVA
-adonis2(matrix_tri ~ groups_tri)  # trichromat
-adonis2(matrix_tetra ~ groups_tetra)  # tetrachromat
+adonis2(matrix_tri ~ groups)  # trichromat
+adonis2(matrix_tetra ~ groups)  # tetrachromat
 
 # Step (2) Are colours *perceptually* separable?
 # Use bootcoldist() to estimate bootstrapped color distances between frogs and backgrounds
@@ -126,6 +122,27 @@ boot_tetra <-
 boot_tetra
 
 
+## How about an adjacency analysis to complement?
+
+# Run the adjacency analysis on a single frog image of a butterfly
+frog <- getimg()
+
+# Colour classify the image
+frog_class <- classify(frog, kcols = 2)
+
+# Visualise the results of classification (could also use plot())
+summary(frog_class, plot = TRUE)
+
+# Generate a colour distance matrix for our frog-background contrast
+# distances <- data.frame(
+#   c1 = c(1),
+#   c2 = c(2),
+#   dS = c(),
+#   dL = c()
+# )
+
+# Run the adjacency analysis
+frog_adj <- adjacent(frog_class, xscale = 100, coldists = distances)
 
 
 
