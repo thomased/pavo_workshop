@@ -11,7 +11,7 @@ library(vegan)
 library(tidyverse)
 
 # Load real data (to be used in place of the simulated spectra during real analysis)
-dat <- getspec('../data/q2_discrimination/', ext = '.jaz')
+dat <- getspec('../data/q2_discrimination/', ext = 'jaz')
 
 # Plot specs
 plot(dat, col = rep(c('forestgreen', 'brown'), each = 10), 
@@ -22,11 +22,11 @@ legend('topright', legend = c('Frog', 'Background'), col = c('forestgreen', 'bro
 dat <- procspec(dat, opt = 'smooth', fixneg = 'zero', span = 0.2)
 
 # Visualise frogs and backgrounds separately
-plot(subset(dat, 'F'), col = 'forestgreen', 
+plot(subset(dat, 'f'), col = 'forestgreen', 
      main = "Frogs",
      lwd = 1.5)
 
-plot(subset(dat, 'B'), col = 'brown', 
+plot(subset(dat, 'b'), col = 'brown', 
      main = "Backgrounds",
      lwd = 1.5)
 
@@ -67,6 +67,7 @@ plot(tcs_tetra, col = rep(c('forestgreen', 'brown'), each = 10))
 # Tri-chromat contrasts (Habronattus)
 dist_tri <- coldist(vis_tri, 
                     noise = 'neural',
+                    weber = 0.1,
                     n = c(1, 2, 2),
                     achromatic = TRUE)
 
@@ -74,6 +75,7 @@ dist_tri <- coldist(vis_tri,
 dist_tetra <- coldist(vis_tetra, 
                       noise = 'neural', 
                       n = c(1, 2, 2, 4),
+                      weber = 0.1,
                       achromatic = TRUE)
 
 # Can also visualise them in 'rn-space' or 'JND-space'
@@ -121,28 +123,6 @@ boot_tetra <-
 
 boot_tetra
 
-
-## How about an adjacency analysis to complement?
-
-# Run the adjacency analysis on a single frog image of a butterfly
-frog <- getimg()
-
-# Colour classify the image
-frog_class <- classify(frog, kcols = 2)
-
-# Visualise the results of classification (could also use plot())
-summary(frog_class, plot = TRUE)
-
-# Generate a colour distance matrix for our frog-background contrast
-# distances <- data.frame(
-#   c1 = c(1),
-#   c2 = c(2),
-#   dS = c(),
-#   dL = c()
-# )
-
-# Run the adjacency analysis
-frog_adj <- adjacent(frog_class, xscale = 100, coldists = distances)
 
 
 
