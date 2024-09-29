@@ -11,7 +11,7 @@ library(vegan)
 library(tidyverse)
 
 # Load real data (to be used in place of the simulated spectra during real analysis)
-# dat <- getspec('../data/q2_discrimination/', ext = '.jaz')
+dat <- getspec('../data/q2_discrimination/', ext = '.jaz')
 
 # Plot specs
 plot(dat, col = rep(c('forestgreen', 'brown'), each = 10), 

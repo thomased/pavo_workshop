@@ -27,7 +27,8 @@ specs <- as.rspec(specs, lim = c(300, 700))
 specs <- procspec(specs, opt = 'smooth', fixneg = 'zero', span = 0.1)
 
 # Visualize the processed reflectance spectra
-plot(specs)
+plot(specs, type = 'heatmap')
+?plot.rspec  # Have a look at the help file to see what other plots are available
 
 # Visualise the spectra by sex, based on 'm' or 'f' in the names of the individuals
 par(mfrow = c(1, 2))
@@ -44,6 +45,7 @@ par(mfrow = c(1, 1))
 # Extract 21 common 'colourimetric' variables which describe various
 # aspects of spectra reflectance in terms of 'hue', 'saturation', and 'brightness'
 specs_summary <- summary(specs)
+?summary.rspec
 
 # Choose a sensible measure of 'hue' 'chroma' and 'brightness' for 'yellow' (pigmentary) component, using
 # summary(). Then some tidying.
