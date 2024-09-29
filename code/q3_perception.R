@@ -12,7 +12,6 @@ set.seed(123)
 inflects_a <- round(runif(15, 500, 600), 1)  # Inflection point locations for population a
 inflects_b <- round(runif(15, 400, 600), 1)  # Inflection point locations for population b
 inflects_c <- round(runif(15, 340, 500), 1)  # Inflection point locations for population c
-y_lims <- 
 specs_a <- lapply(seq_along(inflects_a), function(x) simulate_spec(wl_inflect = inflects_a[x]))  # Simulate
 specs_b <- lapply(seq_along(inflects_b), function(x) simulate_spec(wl_inflect = inflects_b[x]))  # Simulate
 specs_c <- lapply(seq_along(inflects_c), function(x) simulate_spec(wl_inflect = inflects_c[x]))  # Simulate
